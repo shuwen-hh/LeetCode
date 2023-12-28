@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Solution {
 
@@ -27,7 +30,7 @@ public class Solution {
 
     /**
      * 739. 每日温度
-     *
+     * <p>
      * 暴力双循环超时。。。
      */
     public static int[] dailyTemperatures(int[] temperatures) {
@@ -62,4 +65,91 @@ public class Solution {
         return x;
     }
 
+    /**
+     * 两数之和
+     *
+     * @param nums   原始数组
+     * @param target 目标和
+     * @return 满足目标和的两个数
+     */
+    public static int[] twoSum(int[] nums, int target) {
+        int[] result = new int[2];
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (hashMap.containsKey(target - nums[i])) {
+                result[0] = hashMap.get(target - nums[i]);
+                result[1] = i;
+                break;
+            }
+            hashMap.put(nums[i], i);
+        }
+        return result;
+    }
+
+    /**
+     * 三数之和
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        result.add(new ArrayList<>());
+        return result;
+    }
+
+    /**
+     * 509.斐波那契数
+     */
+    public int fib(int n) {
+        int x_0 = 0, x_1 = 1, x = 0;
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return 1;
+        }
+
+        for (int i = 2; i <= n; i++) {
+            x = x_0 + x_1;
+            x_0 = x_1;
+            x_1 = x;
+        }
+        return x;
+    }
+
+    /**
+     * 1137.第 N 个泰波那契数
+     */
+    public int tribonacci(int n) {
+        int x_0 = 0, x_1 = 1, x_2 = 1, x = 0;
+
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1 || n == 2) {
+            return 1;
+        }
+
+        for (int i = 3; i <= n; i++) {
+            x = x_0 + x_1 + x_2;
+            x_0 = x_1;
+            x_1 = x_2;
+            x_2 = x;
+        }
+        return x;
+    }
+
+    /**
+     * 746.使用最小花费爬楼梯
+     */
+    public int minCostClimbingStairs(int[] cost) {
+        int length = cost.length;
+        int[] dp = new int[length + 1];
+
+        dp[0] = dp[1] = 0;
+
+        for (int i = 2; i <= length; i++) {
+            dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+        }
+        return dp[length];
+    }
 }
